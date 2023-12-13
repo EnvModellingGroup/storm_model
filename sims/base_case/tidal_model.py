@@ -62,7 +62,7 @@ pressure = Function(CG_2d, name="pressure")
 tau_file = File(outputdir + '/tau.pvd')
 pressure_file = File(outputdir + '/pressure.pvd')
 
-coord_system = coordsys.UTMCoordinateSystem(utm_zone=30)
+coord_system = coordsys.UTMCoordinateSystem(utm_zone=30, south=True)
 start_datetime = datetime.datetime(2020,2,14,0,0,0,tzinfo=sim_tz)
 era5_file = "storm_dennis.nc"
 forcing = atmospheric_forcing.ERA5Interpolator(CG_2d,tau,pressure,coord_system, era5_file, start_datetime)
