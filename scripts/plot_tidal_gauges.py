@@ -40,7 +40,7 @@ def tex_escape(text):
 
 constituents = params.constituents
 tide = uptide.Tides(constituents)  # select which constituents to use
-tide.set_initial_time(params.start_datetime) 
+tide.set_initial_time(params.start_datetime + datetime.timedelta(hours=10)) 
 
 t_start = params.spin_up
 t_export = params.output_time
@@ -73,7 +73,7 @@ model_data = {}
 tg_order = [] # we need to do things in order, so this helps keep track
 try:
     with open(tide_gauges, 'r') as csvfile:
-        # need to read in a couple of lines, rather thana set of bytes
+        # need to read in a couple of lines, rather than a set of bytes
         # for sniffer to work properly
         temp_lines = csvfile.readline() + '\n' + csvfile.readline()
         dialect = csv.Sniffer().sniff(temp_lines, delimiters=",\t")
@@ -95,7 +95,7 @@ except csv.Error:
     sys.exit(1)
 
 # list which gauges want plotting
-model_times = np.arange(t_start,t_end,t_export)
+model_times = np.arange(t_start,t_end+t_export,t_export)
 df = pd.read_csv(model_input, header=None)
 
 # now loop over tide gauges and plot them.
@@ -103,7 +103,7 @@ for name in tg_order:
     # pull amplitude
     obs_amps = []
     obs_phases = []
-    idx = tg_order.index(name)
+    idx = tg_order.index(name) + 1
     for t in constituents:
         obs_amps.append(float(tide_gauge_data[name][t+" amp"]))
         obs_phases.append(np.radians(float(tide_gauge_data[name][t+" phase"])))
