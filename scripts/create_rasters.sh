@@ -23,7 +23,7 @@ function process_file {
         # loop over variables with counter
         echo "   Rasterising ${var}"
         # create the raster ov the vtu
-        mpiexec -n ${ncore} python h5_2_raster.py --resolution ${resolution} ${file} ${mesh} temp --func ${var}
+        python h5_2_raster.py --resolution ${resolution} ${file} ${mesh} temp --func ${var}
         # create a filename
         filename="${directory}/${var}".nc
         #mask it
