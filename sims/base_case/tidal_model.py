@@ -15,9 +15,10 @@ t_export = params.output_time
 t_end = params.end_time
 output_dir = params.output_dir
 utm_zone = params.utm_zone
-utm_band=params.utm_band
+utm_band = params.utm_band
 cent_lat = params.cent_lat
 cent_lon = params.cent_lon
+t_start = 0
 
 # read bathymetry code
 chk = CheckpointFile('bathymetry.h5', 'r')
@@ -59,8 +60,8 @@ CG_2d_vec = VectorFunctionSpace(mesh2d, 'CG',1)
 sim_tz = timezone.pytz.utc
 tau = Function(CG_2d_vec, name="tau")
 pressure = Function(CG_2d, name="pressure")
-tau_file = File(outputdir + '/tau.pvd')
-pressure_file = File(outputdir + '/pressure.pvd')
+tau_file = File(output_dir + '/Wind/tau.pvd')
+pressure_file = File(output_dir + '/Pressure/pressure.pvd')
 
 coord_system = coordsys.UTMCoordinateSystem(utm_zone=30, south=True)
 start_datetime = datetime.datetime(2020,2,14,0,0,0,tzinfo=sim_tz)

@@ -67,12 +67,12 @@ except csv.Error:
 
 ignore = []
 model_data = {}
-thetis_times = np.arange(params.spin_up, params.end_time, params.output_time)
+thetis_times = np.arange(params.spin_up, params.end_time+params.output_time, params.output_time)
 df = pd.read_csv(model_input, header=None)
 
 for name in tg_order:
     # pull amplitude
-    idx = tg_order.index(name)
+    idx = tg_order.index(name)+1
     # Subtract mean
     thetis_elev = df.iloc[:, idx]
     thetis_elev = thetis_elev - thetis_elev.mean()
